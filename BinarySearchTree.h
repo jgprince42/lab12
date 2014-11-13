@@ -84,18 +84,43 @@ int BinarySearchTree<T>::getHeight(TreeNode<T>* tNode)
 template < class T >
 bool BinarySearchTree<T>::isBalanced()
 {
-   //DO THIS
-
+   return isBalanced(root);
 }
 
 template < class T >
 bool BinarySearchTree<T>::isBalanced(TreeNode<T>* tNode)
 {
-   //DO THIS
 
+    if(tNode == NULL)
+		return true;
+	
+	else
+	{
+		bool lbal = isBalanced(tNode->getLeft());
+		
+		if(lbal)
+		{
+			bool rbal = isBalanced(tNode->getRight());
+			
+			if(rbal)
+			{
+				int lheight = getHeight(tNode->getLeft());
+				int rheight = getHeight(tNode->getRight());
+				
+				if(lheight == rheight)
+					return true;
+				else
+					return false;
+				
+			}
+			else
+				return false;
+		}
+		else
+			return false;
+	}
 
-
-
+	return false;
 }
 
 template < class T >
@@ -105,9 +130,9 @@ BinarySearchTree<T>* BinarySearchTree<T>::minimize()
    BinarySearchTree<T>* bst = new BinarySearchTree<T>(compare_items, compare_keys);
    //DO THIS
 
-
-
-
+	bst->minimize(items, 0, items->sze - 1);
+	
+	return bst;
 }
 
 template < class T >
@@ -115,6 +140,17 @@ void BinarySearchTree<T>::minimize(T** items, int first, int last)
 {
    //DO THIS (recursive minimize method)
 
+	int mid = first + (last - first)/2;
+	
+	if(items->isEmpty())
+		return;
+	else
+	{
+		for(int i = 0; i < mid; i++)
+		{
+			
+		}
+	
 
 
 

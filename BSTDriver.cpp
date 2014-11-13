@@ -55,6 +55,15 @@ int main()
    //display the height of the binary search tree (not minimum height)
    //display whether the binary search tree is balanced (should not be balanced)
 
+   int curr_height = bst->getHeight();
+   
+   cout << curr_height << endl;
+   
+    if(bst->isBalanced())
+		cout << "Binary Search Tree is balanced.\n";
+	else
+		cout << "Binary Search Tree is not balanced.\n";
+	
 
 
 
@@ -79,7 +88,13 @@ int main()
    //display the height of the binary search tree (should be minimum height)
    //display whether the binary search tree is balanced (should be balanced)
 
-
+	curr_height = bst->getHeight();
+	
+	if(bst->isBalanced())
+		cout << "Binary Search Tree is balanced.\n";
+	else
+		cout << "Binary Search Tree is not balanced.\n";
+	
 
 
 
@@ -105,7 +120,12 @@ int main()
    //display the height of the complete binary search tree (should be minimum height)
    //display whether the binary search tree is balanced (should be balanced)
 
-
+	curr_height = bst->getHeight();
+	
+	if(bst->isBalanced())
+		cout << "Binary Search Tree is balanced.\n";
+	else
+		cout << "Binary Search Tree is not balanced.\n";
 
 
 
