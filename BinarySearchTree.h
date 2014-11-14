@@ -69,14 +69,33 @@ template < class T >
 int BinarySearchTree<T>::getHeight()
 {
    //DO THIS
-
+	int height = getHeight(root);
+	return height;
 }
 
 template < class T >
 int BinarySearchTree<T>::getHeight(TreeNode<T>* tNode)
 {
    //DO THIS
-
+	if(tNode == NULL)
+	{
+		return 0;
+	}
+	
+	else
+	{
+		int leftH = getHeight(tNode->getLeft());
+		int rightH = getHeight(tNode->getRight());
+		
+		if(leftH < rightH)
+		{
+			return rightH + 1;
+		}	
+		else
+		{
+			return leftH + 1;
+		}
+	}
 
 
 }
@@ -85,6 +104,8 @@ template < class T >
 bool BinarySearchTree<T>::isBalanced()
 {
    //DO THIS
+  bool balanced = isBalanced(root);
+  return balanced;
 
 }
 
@@ -92,10 +113,38 @@ template < class T >
 bool BinarySearchTree<T>::isBalanced(TreeNode<T>* tNode)
 {
    //DO THIS
+	if (tNode == NULL)
+	{
+		return true;
+	}
 
-
-
-
+	bool lb = isBalanced(tNode->getLeft());
+	if (lb == true)
+	{
+		bool rb = isBalanced(tNode->getRight());
+		if(rb == true)
+		{
+			int lh = getHeight(tNode->getLeft());
+			int rh = getHeight(tNode->getRight());
+			
+			if(abs(lh - rh) < 2)
+			{
+			return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else 
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
 }
 
 template < class T >
@@ -105,20 +154,24 @@ BinarySearchTree<T>* BinarySearchTree<T>::minimize()
    BinarySearchTree<T>* bst = new BinarySearchTree<T>(compare_items, compare_keys);
    //DO THIS
 
-
-
-
+	bst->minimize(items, 0, sze - 1);
+	return bst;
 }
 
 template < class T >
 void BinarySearchTree<T>::minimize(T** items, int first, int last)
 {
    //DO THIS (recursive minimize method)
-
-
-
-
-
+	if(first > last)
+	{
+		return;
+	}
+	
+	int mid = first + ((last - first)/2);
+	this->insert(items[mid]);
+	minimize(items, first, mid-1);
+	minimize(items, mid + 1, last);
+	
 }
 
 template < class T >
@@ -145,6 +198,9 @@ BinarySearchTree<T>* BinarySearchTree<T>::minimizeComplete()
    T** items = toArray();
    BinarySearchTree<T>* bst = new BinarySearchTree<T>(compare_items, compare_keys);
    //DO THIS
+   
+   bst->minimizeComplete(items, 0, sze-1);
+   return bst;
 
 
 }
@@ -167,10 +223,10 @@ void BinarySearchTree<T>::minimizeComplete(T** items, int first, int last)
       if (first < last)
       {
          //initial log computations using mid
-         double k_left =                    //log base 2 of the number of items to the left of mid (including mid)
-         double int_k_left =                //same as above but rounded
-         double k_right =
-         double int_k_right =
+         double k_left = log(mid-first)*log_factor; //log base 2 of the number of items to the left of mid (including mid)
+         double int_k_left = (int)(k_left + 0.5);            //same as above but rounded
+         double k_right =	log(last - mid)*log_factor;
+         double int_k_right = (int)(k_right + 0.5);
 
          //keep searching for spot where the number of elements to the left of mid is 2^k - 1 (a full tree)
          //which means the number of elements to the left of mid including mid is 2^k 
@@ -182,21 +238,20 @@ void BinarySearchTree<T>::minimizeComplete(T** items, int first, int last)
             mid++;
             //DO THIS
             //try again with mid shifted one to the right
-
-
-
-
-
+				
+			k_left = log(mid-first)*log_factor;
+			int_k_left = (int)(k_left + 0.5);
+			k_right = log(last - mid)*log_factor;
+			int_k_right = (int)(k_right + 0.5);
          }
       }
 
       //DO THIS
       //found the next item to insert into the tree
       //get it, insert it, and make two recursive calls
-
-
-
-
+		this->insert(items[mid]);
+		minimizeComplete(items, first, mid - 1);
+		minimizeComplete(items, mid + 1, last);
 
    }
 }
